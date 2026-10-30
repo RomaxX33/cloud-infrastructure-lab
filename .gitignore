@@ -13,3 +13,5 @@ crash.*.log
 # Local Python environments
 .venv/
 .venv-*/
+*.tfvars.json
+.aws/
