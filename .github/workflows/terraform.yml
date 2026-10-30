@@ -17,10 +17,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4.0.1
 
       - name: Check formatting
         run: terraform fmt -check -recursive
@@ -37,11 +37,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        run: |
+          python3 -m venv .venv-checkov
+          .venv-checkov/bin/python -m pip install --upgrade pip
+          .venv-checkov/bin/pip install checkov==3.4.0
 
       - name: Scan Terraform with Checkov
-        uses: bridgecrewio/checkov-action@v12.1347.0
-        with:
-          directory: .
-          framework: terraform
-          output_format: cli
+        run: .venv-checkov/bin/checkov --directory . --framework terraform --output cli
