@@ -53,9 +53,19 @@ Run these commands in PowerShell:
 - `terraform init -backend=false`
 - `terraform validate`
 
-Run the security scan with Checkov 3.4.0:
+Run the security scan with Checkov 3.4.0.
 
-- `.\.venv-checkov\Scripts\checkov.cmd --directory . --framework terraform --output cli`
+**On Windows:**
+
+1. Create the environment: `python -m venv .venv-checkov`
+2. Install Checkov: `.\.venv-checkov\Scripts\python.exe -m pip install checkov==3.4.0`
+3. Run the scan: `.\.venv-checkov\Scripts\python.exe .\.venv-checkov\Scripts\checkov --directory . --framework terraform --output cli`
+
+**On Linux:**
+
+1. Create the environment: `python3 -m venv .venv-checkov`
+2. Install Checkov: `.venv-checkov/bin/python -m pip install checkov==3.4.0`
+3. Run the scan: `.venv-checkov/bin/checkov --directory . --framework terraform --output cli`
 
 These checks validate the configuration locally. They do not deploy AWS resources.
 
